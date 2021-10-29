@@ -1,0 +1,44 @@
+/* This is a comment in CSS. */
+
+/*/
+    Hide the element where id = "assets".
+    Everything contained inside that element is also hidden.
+/*/
+#assets {
+    display: none;
+}
+
+/*/
+    Make things in element with id = items
+    flow left to right instead of top to bottom
+/*/
+#items {
+    display: flex;
+    margin: 0 auto;
+}
+
+/*/
+    Make things in element with id = menu
+    flow left to right instead of top to bottom
+/*/
+#menu {
+    display: flex;
+    margin: 0 auto;
+}
+
+/*/
+    Images in figures can only be 64 pixels tall
+/*/
+figure.item img {
+    height: 64px;
+    vertical-align: top;
+}
+
+/*/
+    Captions in figures has a blue border
+/*/
+figure.item figcaption {
+    border: 1px dotted blue;
+    text-align: center;
+}
+
