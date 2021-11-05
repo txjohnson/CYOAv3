@@ -1,3 +1,24 @@
+var current_room = "start"
+
+/*/
+    This variable is used to assign an id to every
+    item.
+/*/
+var next_item_id = 1;
+
+function generate_id () {
+    let id = next_item_id;
+    next_item_id++;
+    return id;
+}
+
+/*/
+    This function get's a random number between 0 and max
+/*/
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+  
 /*/
     Get the element where id="view"
     That element must exist in the HTML document.
@@ -39,26 +60,29 @@ function showItems (where) {
     items_element.replaceChildren();
 
     for (i = 0; i < stuff_in_area.length; i++) {
-        let item_element = document.getElementById (stuff_in_area [i]);
-        items_element.appendChild (item_element .cloneNode(true));
+        const item_name = stuff_in_area[i];
+        let item = document.getElementById (stuff_in_area [i]);
+        items_element.appendChild (item .cloneNode(true));
         items_element.lastChild.onclick=function(){
-            takeItem (where, stuff_in_area[i]);
-        }
+            takeItem (where, item_name);
+        };
     }
 }
 /*/
-    Show menu items
+    Show inventory items
 /*/
-function showMenu () {
+function showInventory () {
     let menu_element = getMenuElement();
     menu_element.replaceChildren();
 
     for (i = 0; i < inventory.length; i++) {
-        let menu_item = document.getElementById (inventory [i]);
-        menu_element.appendChild (menu_item .cloneNode(true));
+        const item_name = inventory[i];
+        let item = document.getElementById (item_name);
+        menu_element.appendChild (item .cloneNode(true));
+        console.log("listing: ", inventory[i]);
         menu_element.lastChild.onclick=function(){
-            dropItem (where, inventory[i]);
-        }
+            dropItem (item_name);
+        };
     }
 }
 
@@ -72,9 +96,9 @@ function setViewTo (what) {
 
     view_element.replaceChildren();
     view_element.appendChild (element.cloneNode(true));
-
+    current_room = what;
     showItems (what);
-    showMenu ()
+    showInventory ()
 }
 
 /*/
@@ -86,16 +110,21 @@ function takeItem (where, which) {
     console.log(inventory);
     let list = items [where];
     list .splice (list.indexOf(which), 1);
+    console.log("room contains:", list);
     showItems (where);
-    showMenu();
+    showInventory();
 }
 
 /*/
     drop an item into a room
 /*/
-function dropItem (where, which) {
-    list [where].push (which);
+function dropItem (which) {
+    let room = document.getElementById
+    items [current_room].push (which);
     inventory .splice (inventory.indexOf(which), 1);
-    showItems (where);
-    showMenu();
+    console.log("room contains:", items [current_room]);
+    console.log("inventory contains:", inventory);
+
+    showItems (current_room);
+    showInventory();
 }
